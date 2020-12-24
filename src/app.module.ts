@@ -1,15 +1,14 @@
-import env from 'dotenv';
+import * as envModule from 'dotenv';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './services/user.service';
 import { UserController } from './controllers/userController';
 
-env.config();
+envModule.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      port: 3306,
       entities: [],
       type: 'postgres',
       synchronize: true,
