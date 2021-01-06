@@ -29,20 +29,58 @@
 ## Installation
 
 ```bash
-$ npm install
+# With npm
+npm install
+
+# With yarn
+yarn install
 ```
+
+## Set PostgreSQL configuration
+
+```bash
+# enable postgres repository
+sudo apt-get install wget ca-certificates
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+
+sudo apt-get update
+
+# install Postgres
+sudo apt-get install postgresql postgresql-contrib
+
+# install dependencies
+sudo apt-get install postgresql postgresql-contrib libpq-dev python-dev
+
+# login on Postgres
+sudo -i -u postgres
+
+psql
+
+# change default user password
+ALTER USER postgres WITH PASSWORD 'postgres';
+```
+
+## Creating database
+
+```bash
+CREATE DATABASE find_me_dev;
+```
+
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+npm run start
 
 # watch mode
-$ npm run start:dev
+npm run start:dev
 
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
 
 ## Test
