@@ -26,4 +26,10 @@ export class UserController {
       });
     }
   }
+
+  @Get('/user/list')
+  async index(@Res() response: Response) {
+    const users = await this.userService.findAll();
+    return response.json({ status: 'success', data: users });
+  }
 }
