@@ -17,13 +17,13 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ default: null })
   thumbnail: string;
 
   @Column()
   password: string;
 
-  @Column({ name: 'expired_token' })
+  @Column({ name: 'expired_token', default: null })
   expiredToken: string;
 
   @CreateDateColumn({ name: 'created_at ' })
