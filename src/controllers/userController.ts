@@ -1,18 +1,18 @@
-import { Response, Request } from 'express';
-import { RequestUserSchema } from '../interfaces';
+import { Response } from 'express';
+import { UserSchema } from '../interfaces';
 import { UserService } from '../providers/user.service';
-import { Controller, Post, Req, Res, Get } from '@nestjs/common';
+import { Controller, Post, Body, Res, Get } from '@nestjs/common';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/signUp')
-  async create(@Req() request: Request, @Res() response: Response) {
-    const User = RequestUserSchema.parse(request.body);
-
+  async create(@Body() User: UserSchema, @Res() response: Response) {
     try {
+      this.userService.validateEmptyFields(User);
       await this.userService.validateEmail(User.email);
+      await this.userService.validatePassword(User.password);
       const registeredUser = await this.userService.createUser(User);
 
       const accessToken = this.userService.generateToken({
