@@ -43,6 +43,27 @@ describe('UserController', () => {
   });
 
   describe('create', () => {
+    it('should be validate user password', async () => {
+      const user = TestUser.giveValidUser();
+      mockRepository.save.mockReturnValue(user);
+      mockRepository.create.mockReturnValue(user);
+
+      const newUser = await userService.createUser(user);
+
+      expect(newUser.password).not.toBeNull();
+      expect(newUser.password.length).toBeGreaterThanOrEqual(8);
+    });
+
+    it('should be validate user email', async () => {
+      const user = TestUser.giveValidUser();
+      mockRepository.save.mockReturnValue(user);
+      mockRepository.create.mockReturnValue(user);
+
+      const newUser = await userService.createUser(user);
+
+      expect(newUser.password).not.toBeNull();
+    });
+
     it('should be created a new user', async () => {
       const user = TestUser.giveValidUser();
       mockRepository.save.mockReturnValue(user);
@@ -56,9 +77,6 @@ describe('UserController', () => {
         password: '12345678',
         email: 'example@gmail.com',
       });
-
-      expect(mockRepository.save).toHaveBeenCalledTimes(1);
-      expect(mockRepository.create).toHaveBeenCalledTimes(1);
     });
   });
 });
